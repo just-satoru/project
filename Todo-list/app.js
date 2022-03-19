@@ -65,8 +65,9 @@ function deleteCheck(e) {
         const todo = item.parentElement;
         const todoInner = todo.childNodes[0];
         const old = todoInner.innerText;
-        const edit = prompt('', old); 
-        todoInner.innerText = edit;
+        const edit = prompt('', old);
+       
+        todoInner.innerText = edit === null ? old : edit;
         editLocalTodos(todo, old);
     }
     //CHECK MARK
@@ -98,7 +99,7 @@ function filterTodo(e) {
                 }
                 break;
         }
-    })
+    });
 }
 
 function saveLocalTodos(todo) {
@@ -167,10 +168,9 @@ function editLocalTodos(todo, old) {
     } else {
         todos = JSON.parse(localStorage.getItem('todos'));
     }
-   
+
     const todoIndex = todo.children[0].innerText;
-    console.log(todoIndex);
-    console.log(old);
+
     todos[todos.indexOf(old)] = todoIndex;
     localStorage.setItem('todos', JSON.stringify(todos));
 }
